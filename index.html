@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sahanovschi Andrei</title>
+    <title>IP Address Checker</title>
     <style>
         button {
             background-color: #4CAF50;
@@ -20,8 +20,32 @@
     </style>
 </head>
 <body>
-    <h1>Welcome to Sahanovschi Andrei's Website</h1>
-    <p>This is a simple website created for Sahanovschi Andrei.</p>
-    <button>Contact Me</button>
+    <h1>IP Address Checker</h1>
+    <button onclick="checkIPs()">Check IP Addresses</button>
+    <p id="status"></p>
+
+    <script>
+        function checkIPs() {
+            const ip1 = "10.100.14.59";
+            const ip2 = "10.100.3.200";
+
+            const status1 = ping(ip1);
+            const status2 = ping(ip2);
+
+            document.getElementById("status").innerHTML = `IP Address ${ip1}: ${status1}<br>IP Address ${ip2}: ${status2}`;
+        }
+
+        function ping(ip) {
+            const cmd = `ping -c 1 ${ip}`;
+            const execSync = require('child_process').execSync;
+            const output = execSync(cmd).toString();
+
+            if (output.includes("1 packets transmitted, 1 received")) {
+                return "Online";
+            } else {
+                return "Offline";
+            }
+        }
+    </script>
 </body>
 </html>
